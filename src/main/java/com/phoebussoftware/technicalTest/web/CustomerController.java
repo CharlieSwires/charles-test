@@ -22,22 +22,22 @@ public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
-    
-  @GetMapping("/{customerId}")
-  public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Integer customerId) {
-    return ResponseEntity.ok(CustomerDTO.builder().build());
-  }
 
-  @GetMapping("/account/{customerId}")
-  public ResponseEntity<List<AccountDTO>> getAccountsByCustomerId(
-      @PathVariable Integer customerId) {
-    List<AccountDTO> accountDTOS = List.of(AccountDTO.builder().build());
-    return new ResponseEntity<>(accountDTOS, HttpStatus.OK);
-  }
-  
-  @PostMapping("/customerDTO")
-  public ResponseEntity<CustomerDTO> saveAccount(@RequestBody CustomerDTO body) {
-      customerService.saveCustomer(body);
-      return new ResponseEntity<>(body, HttpStatus.CREATED);
+    @GetMapping("/{customerId}")
+    public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Integer customerId) {
+        return ResponseEntity.ok(CustomerDTO.builder().build());
+    }
+
+    @GetMapping("/account/{customerId}")
+    public ResponseEntity<List<AccountDTO>> getAccountsByCustomerId(
+            @PathVariable Integer customerId) {
+        List<AccountDTO> accountDTOS = List.of(AccountDTO.builder().build());
+        return new ResponseEntity<>(accountDTOS, HttpStatus.OK);
+    }
+
+    @PostMapping("/customerDTO")
+    public ResponseEntity<CustomerDTO> saveAccount(@RequestBody CustomerDTO body) {
+        customerService.saveCustomer(body);
+        return new ResponseEntity<>(body, HttpStatus.CREATED);
     }
 }
