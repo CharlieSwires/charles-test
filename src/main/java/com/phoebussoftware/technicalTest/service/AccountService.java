@@ -28,11 +28,22 @@ public class AccountService {
     }
 
     public AccountDTO saveAccount(AccountDTO accountDto) {
-        AccountEntity entity = AccountEntity.builder()
-                .accountId(accountDto.getAccountId())
-                .accountNumber(accountDto.getAccountNumber())
-                .build();
+        AccountEntity entity = toEntity(accountDto);
         accountRepository.save(entity);
         return accountDto;
+    }
+
+    public AccountEntity toEntity(AccountDTO item) {
+        return AccountEntity.builder()
+                .accountId(item.getAccountId())
+                .accountNumber(item.getAccountNumber())
+                .build();
+    }
+
+    public AccountDTO toDTO(AccountEntity item) {
+        return AccountDTO.builder()
+        .accountId(item.getAccountId())
+        .accountNumber(item.getAccountNumber())
+        .build();
     }
 }

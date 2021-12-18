@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +19,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "ACCOUNT")
 public class AccountEntity {
   @Id Long accountId;
-
+  
   @NotNull
   Integer accountNumber;
 
