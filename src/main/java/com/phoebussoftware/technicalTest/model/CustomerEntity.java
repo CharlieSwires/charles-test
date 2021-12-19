@@ -23,7 +23,7 @@ import java.util.Set;
 @Entity
 @Table(name = "CUSTOMER")
 public class CustomerEntity {
-  @Id Long customerId;
+  @Id Integer customerId;
 
   @OneToMany List<AccountEntity> accountEntities;
 

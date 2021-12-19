@@ -27,11 +27,13 @@ public class AccountService {
         return AccountDTO.builder()
                 .accountId(accountEntity.get().getAccountId())
                 .accountNumber(accountEntity.get().getAccountNumber())
-                .customerDTO(customerService.getCustomerForId (accountEntity.get().getCustomerId()))
                .build();
     }
 
     public AccountDTO saveAccount(AccountDTO accountDto) {
+        if(accountDto.getAccountNumber()==null || accountDto.getAccountNumber() <= 0) {
+            throw new RuntimeException("account number empty or null");
+        }       
         AccountEntity entity = toEntity(accountDto);
         accountRepository.save(entity);
         AccountDTO result = toDTO(entity);
@@ -42,7 +44,6 @@ public class AccountService {
         return AccountEntity.builder()
                 .accountId(item.getAccountId())
                 .accountNumber(item.getAccountNumber())
-                .customerId(item.getCustomerDTO().getCustomerId())
                 .build();
     }
 
@@ -50,7 +51,6 @@ public class AccountService {
         return AccountDTO.builder()
         .accountId(item.getAccountId())
         .accountNumber(item.getAccountNumber())
-        .customerDTO(customerService.getCustomerForId (item.getCustomerId()))
         .build();
     }
 }

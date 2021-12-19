@@ -18,10 +18,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "ACCOUNT")
 public class AccountEntity {
-  @Id Long accountId;
+  @Id Integer accountId;
 
-  Long customerId;
-  
   @NotNull
   @NotEmpty
   Integer accountNumber;

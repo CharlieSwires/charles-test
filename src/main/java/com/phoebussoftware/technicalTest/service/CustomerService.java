@@ -38,8 +38,20 @@ public class CustomerService {
 
     @Transactional
     public CustomerDTO saveCustomer(CustomerDTO body) {
+        if(body.getForename()==null || body.getForename().length() <= 0) {
+            throw new RuntimeException("forename empty or null");
+        }
+        if(body.getSurname()==null || body.getSurname().length() <= 0) {
+            throw new RuntimeException("surname empty or null");
+        }
+        if(body.getDateOfBirth()==null) {
+            throw new RuntimeException("DOB null");
+        }
         List<AccountEntity> aes = new ArrayList<AccountEntity>();
         for (AccountDTO item: body.getAccountDTOS()) {
+            if(item.getAccountNumber()==null || item.getAccountNumber() <= 0) {
+                throw new RuntimeException("account number empty or null");
+            }
             accountService.saveAccount(item);
             aes.add(accountService.toEntity(item));
         }

@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class CustomerDTO {
-  Long customerId;
+  Integer customerId;
   List<AccountDTO> accountDTOS;
   @NotNull
   @NotEmpty
