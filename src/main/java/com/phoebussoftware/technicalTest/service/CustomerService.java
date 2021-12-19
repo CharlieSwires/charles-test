@@ -19,9 +19,7 @@ public class CustomerService {
 
     @Autowired
     public CustomerRepository customerRepository;
-    @Autowired
-    private AccountService accountService;
-
+ 
     public CustomerDTO getCustomerForId (Integer customerId) {
         Optional<CustomerEntity> customerEntityOptional = customerRepository.findById(customerId);
         if (!customerEntityOptional.isPresent()) {

@@ -14,8 +14,6 @@ public class AccountService {
 
     @Autowired
     public AccountRepository accountRepository;
-    @Autowired
-    public CustomerService customerService;
 
     public AccountDTO getAccountForId(Integer accountId) {
 
