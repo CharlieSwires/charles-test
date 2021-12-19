@@ -1,18 +1,21 @@
 package com.phoebussoftware.technicalTest.service;
 
-import com.phoebussoftware.technicalTest.DTO.AccountDTO;
-import com.phoebussoftware.technicalTest.model.AccountEntity;
-import com.phoebussoftware.technicalTest.repository.AccountRepository;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import com.phoebussoftware.technicalTest.DTO.AccountDTO;
+import com.phoebussoftware.technicalTest.model.AccountEntity;
+import com.phoebussoftware.technicalTest.repository.AccountRepository;
 
 @Service
 public class AccountService {
 
     @Autowired
     public AccountRepository accountRepository;
+    @Autowired
+    public CustomerService customerService;
 
     public AccountDTO getAccountForId(Integer accountId) {
 
@@ -24,19 +27,22 @@ public class AccountService {
         return AccountDTO.builder()
                 .accountId(accountEntity.get().getAccountId())
                 .accountNumber(accountEntity.get().getAccountNumber())
-                .build();
+                .customerDTO(customerService.getCustomerForId (accountEntity.get().getCustomerId()))
+               .build();
     }
 
     public AccountDTO saveAccount(AccountDTO accountDto) {
         AccountEntity entity = toEntity(accountDto);
         accountRepository.save(entity);
-        return accountDto;
+        AccountDTO result = toDTO(entity);
+        return result;
     }
 
     public AccountEntity toEntity(AccountDTO item) {
         return AccountEntity.builder()
                 .accountId(item.getAccountId())
                 .accountNumber(item.getAccountNumber())
+                .customerId(item.getCustomerDTO().getCustomerId())
                 .build();
     }
 
@@ -44,6 +50,7 @@ public class AccountService {
         return AccountDTO.builder()
         .accountId(item.getAccountId())
         .accountNumber(item.getAccountNumber())
+        .customerDTO(customerService.getCustomerForId (item.getCustomerId()))
         .build();
     }
 }
