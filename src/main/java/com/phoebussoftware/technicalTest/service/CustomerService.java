@@ -28,11 +28,14 @@ public class CustomerService {
             throw new RuntimeException("customer not found for identifier " + customerId);
         }
         CustomerEntity customerEntity = customerEntityOptional.get();
+        List<AccountDTO> adtos = accountService.toDTOS(customerEntity.getAccountEntities());
+
         return CustomerDTO.builder()
                 .customerId(customerEntity.getCustomerId())
                 .forename(customerEntity.getForename())
                 .surname(customerEntity.getSurname())
                 .dateOfBirth(customerEntity.getDateOfBirth())
+                .accountDTOS(adtos)
                 .build();
     }
 

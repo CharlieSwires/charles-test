@@ -25,19 +25,19 @@ public class CustomerController {
 
     @GetMapping("/{customerId}")
     public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Integer customerId) {
-        return ResponseEntity.ok(CustomerDTO.builder().build());
+        return new ResponseEntity<CustomerDTO>(customerService.getCustomerForId(customerId), HttpStatus.OK);
     }
 
     @GetMapping("/account/{customerId}")
     public ResponseEntity<List<AccountDTO>> getAccountsByCustomerId(
             @PathVariable Integer customerId) {
-        List<AccountDTO> accountDTOS = List.of(AccountDTO.builder().build());
-        return new ResponseEntity<>(accountDTOS, HttpStatus.OK);
+        List<AccountDTO> accountDTOS = customerService.getCustomerForId(customerId).getAccountDTOS();
+        return new ResponseEntity<List<AccountDTO>>(accountDTOS, HttpStatus.OK);
     }
 
     @PostMapping("/customerDTO")
     public ResponseEntity<CustomerDTO> saveAccount(@RequestBody CustomerDTO body) {
         customerService.saveCustomer(body);
-        return new ResponseEntity<>(body, HttpStatus.CREATED);
+        return new ResponseEntity<CustomerDTO>(body, HttpStatus.CREATED);
     }
 }

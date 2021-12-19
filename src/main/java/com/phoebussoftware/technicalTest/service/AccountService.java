@@ -1,5 +1,7 @@
 package com.phoebussoftware.technicalTest.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +52,12 @@ public class AccountService {
         .accountId(item.getAccountId())
         .accountNumber(item.getAccountNumber())
         .build();
+    }
+    public List<AccountDTO> toDTOS(List<AccountEntity> items) {
+        List<AccountDTO> adtos = new ArrayList<AccountDTO>();
+        for(AccountEntity item: items) {
+            adtos.add(toDTO(item));
+        }
+        return adtos;
     }
 }
